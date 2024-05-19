@@ -56,3 +56,9 @@ model Address{
   traveller Traveller @relation(fields: [travellerId], references: [id])
   travellerId Int @unique
 }
+
+model Ticket{
+  id           Int     @id @default(autoincrement())
+  ticketNum    Int     @unique
+  price Int
+}
