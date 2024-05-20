@@ -1,12 +1,11 @@
-const express = require('express');
-const cors = require("cors");
-const rootRouter = require("./routes/index");
+import express from 'express'
+import  rootRouter from './routes/index';
 
 const app = express();
-
-app.use(cors());
 app.use(express.json());
 
 app.use("/api/v1", rootRouter);
 
-app.listen(3000);
+app.listen(3000,()=>{
+    console.log("app running at 3k");
+});
