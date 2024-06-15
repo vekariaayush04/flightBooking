@@ -1,11 +1,16 @@
-import express from 'express'
-import  rootRouter from './routes/index';
+// backend/src/index.ts
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+const { userRoutes} = require('./routes/userRoutes');
 
 const app = express();
-app.use(express.json());
 
-app.use("/api/v1", rootRouter);
+app.use(bodyParser.json());
+app.use(cors());
 
-app.listen(3000,()=>{
-    console.log("app running at 3k");
-});
+
+app.use('/api/users', userRoutes);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

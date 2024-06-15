@@ -14,51 +14,88 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  username  String @unique
-  password String
-  mobileNumber String @unique
-  dob DateTime
-  travellers Traveller[]
+  id           Int          @id @default(autoincrement())
+  email        String       @unique
+  username     String       @unique
+  password     String
+  mobileNumber String       @unique
+  dob          DateTime
+  travellers   Traveller[]
+  bookings     Booking[]
+  
 }
 
 model Flight {
-  flightId Int @id @default(autoincrement())
-  flightNumber String @unique
-  flightName String
-  price Int
-  arrival String
-  arrivalTime DateTime
-  departure String
+  flightId      Int          @id @default(autoincrement())
+  flightNumber  String       @unique
+  flightName    String
+  price         Int
+  arrival       String
+  arrivalTime   DateTime
+  departure     String
   departureTime DateTime
-  time DateTime
-  distance Int
-  availableSeats Int @default(100)
+  time          DateTime
+  distance      Int
+  availableSeats Int        @default(100)
+  schedules     FlightSchedule[]
+  bookings      Booking[]
+ 
 }
 
-model Traveller{
-  id Int @id @default(autoincrement())
-  fullname String
-  mobileNumber String @unique
-  age Int
-  user User @relation(fields: [userId], references: [id])
-  userId Int 
-  address Address?
+model Traveller {
+  id           Int          @id @default(autoincrement())
+  fullname     String
+  mobileNumber String       @unique
+  age          Int
+  user         User         @relation(fields: [userId], references: [id])
+  userId       Int 
+  address      Address?
 }
 
-model Address{
-  id Int @id @default(autoincrement())
-  street String
-  zipcode Int
-  state String
-  country String @default("India")
-  traveller Traveller @relation(fields: [travellerId], references: [id])
-  travellerId Int @unique
+model Address {
+  id          Int          @id @default(autoincrement())
+  street      String
+  zipcode     Int
+  state       String
+  country     String       @default("India")
+  traveller   Traveller    @relation(fields: [travellerId], references: [id])
+  travellerId Int          @unique
 }
 
-model Ticket{
-  id           Int     @id @default(autoincrement())
-  ticketNum    Int     @unique
-  price Int
+model Ticket {
+  id        Int    @id @default(autoincrement())
+  ticketNum Int    @unique
+  price     Int
 }
+
+model Booking {
+  id            Int        @id @default(autoincrement())
+  userId        Int
+  flightId      Int
+  bookingDate   DateTime   @default(now())
+  status        String     
+  paymentStatus String     
+  totalPrice    Int
+  user          User       @relation(fields: [userId], references: [id])
+  flight        Flight     @relation(fields: [flightId], references: [flightId])
+ 
+}
+
+
+model FlightSchedule {
+  id            Int        @id @default(autoincrement())
+  flightId      Int
+  date          DateTime
+  availableSeats Int       @default(100)
+  flight        Flight     @relation(fields: [flightId], references: [flightId])
+}
+
+model Airport {
+  id           Int        @id @default(autoincrement())
+  name         String
+  code         String     @unique
+  city         String
+  country      String
+}
+
+
