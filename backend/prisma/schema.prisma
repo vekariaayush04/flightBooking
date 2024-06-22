@@ -23,7 +23,6 @@ model User {
   dob          DateTime
   travellers   Traveller[]
   bookings     Booking[]
-  
 }
 
 model Flight {
@@ -51,6 +50,7 @@ model Traveller {
   user         User         @relation(fields: [userId], references: [id])
   userId       Int 
   address      Address?
+
 }
 
 model Address {

@@ -38,11 +38,13 @@ export const bookFlight = async (req: Request, res: Response): Promise<void> => 
       },
     });
 
-  
+    
     await prisma.flight.update({
       where: { flightId: flightId },
       data: { availableSeats: flight.availableSeats - 1 },
     });
+
+    
 
     res.status(201).json(booking);
   } catch (error: any) {
