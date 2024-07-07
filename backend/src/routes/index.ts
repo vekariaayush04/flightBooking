@@ -1,10 +1,17 @@
-import express from 'express'
-import userRouter from './user';
-
-
+import express from 'express';
 const router = express.Router();
 
-router.use("/user", userRouter);
+import userRoutes from './userRoutes';
+import flightroutes from './flightroutes';
+import bookingRoutes from './bookingRoutes'
 
 
-export default router
+router.use('/users', userRoutes);
+router.use('/flights',flightroutes);
+router.use('/booking',bookingRoutes)
+
+
+
+module.exports = router;
+
+
