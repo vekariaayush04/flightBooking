@@ -15,71 +15,6 @@ datasource db {
 
 
 model User {
-<<<<<<< HEAD
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  username  String @unique
-  password String
-  mobileNumber String @unique
-  dob DateTime
-  bookings Booking[]
-}
-
-model Airport {
-  id          Int       @id @default(autoincrement())
-  code        String    @unique
-  name        String
-  city        String
-  country     String
-  departures  Flight[]  @relation("Departures")
-  arrivals    Flight[]  @relation("Arrivals")
-}
-
-model Aircraft {
-  id          Int       @id @default(autoincrement())
-  model       String
-  capacity    Int
-  flights     Flight[]
-}
-
-model Flight {
-  id Int @id @default(autoincrement())
-  flightNumber String @unique
-  flightName String
-  price Int
-  arrivalTime DateTime
-  departureTime DateTime
-  time DateTime
-  distance Int
-  departureId Int
-  arrivalId Int
-  aircraftId Int
-  bookings Booking[]
-  departure     Airport   @relation("Departures", fields: [departureId], references: [id])
-  arrival       Airport   @relation("Arrivals", fields: [arrivalId], references: [id])
-  aircraft      Aircraft  @relation(fields: [aircraftId], references: [id])
-}
-
-model Booking{
-  id Int @id @default(autoincrement())
-  status    String
-  userId Int 
-  flightId Int
-  user User @relation(fields: [userId], references: [id])
-  flight    Flight    @relation(fields: [flightId], references: [id])
-  // address Address?
-}
-
-// model Address{
-//   id Int @id @default(autoincrement())
-//   street String
-//   zipcode Int
-//   state String
-//   country String @default("India")
-//   booking Booking @relation(fields: [travellerId], references: [id])
-//   travellerId Int @unique
-// }
-=======
   id           Int          @id @default(autoincrement())
   email        String       @unique
   username     String       @unique
@@ -165,4 +100,3 @@ model Airport {
 }
 
 
->>>>>>> 800fdb8d9acc6bd0eae1d61b1dd87fdd05120c9c
