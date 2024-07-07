@@ -20,45 +20,60 @@ model User {
   password String
   mobileNumber String @unique
   dob DateTime
-  travellers Traveller[]
+  bookings Booking[]
+}
+
+model Airport {
+  id          Int       @id @default(autoincrement())
+  code        String    @unique
+  name        String
+  city        String
+  country     String
+  departures  Flight[]  @relation("Departures")
+  arrivals    Flight[]  @relation("Arrivals")
+}
+
+model Aircraft {
+  id          Int       @id @default(autoincrement())
+  model       String
+  capacity    Int
+  flights     Flight[]
 }
 
 model Flight {
-  flightId Int @id @default(autoincrement())
+  id Int @id @default(autoincrement())
   flightNumber String @unique
   flightName String
   price Int
-  arrival String
   arrivalTime DateTime
-  departure String
   departureTime DateTime
   time DateTime
   distance Int
-  availableSeats Int @default(100)
+  departureId Int
+  arrivalId Int
+  aircraftId Int
+  bookings Booking[]
+  departure     Airport   @relation("Departures", fields: [departureId], references: [id])
+  arrival       Airport   @relation("Arrivals", fields: [arrivalId], references: [id])
+  aircraft      Aircraft  @relation(fields: [aircraftId], references: [id])
 }
 
-model Traveller{
+model Booking{
   id Int @id @default(autoincrement())
-  fullname String
-  mobileNumber String @unique
-  age Int
-  user User @relation(fields: [userId], references: [id])
+  status    String
   userId Int 
-  address Address?
+  flightId Int
+  user User @relation(fields: [userId], references: [id])
+  flight    Flight    @relation(fields: [flightId], references: [id])
+  // address Address?
 }
 
-model Address{
-  id Int @id @default(autoincrement())
-  street String
-  zipcode Int
-  state String
-  country String @default("India")
-  traveller Traveller @relation(fields: [travellerId], references: [id])
-  travellerId Int @unique
-}
-
-model Ticket{
-  id           Int     @id @default(autoincrement())
-  ticketNum    Int     @unique
-  price Int
-}
+// model Address{
+//   id Int @id @default(autoincrement())
+//   street String
+//   zipcode Int
+//   state String
+//   country String @default("India")
+//   booking Booking @relation(fields: [travellerId], references: [id])
+//   travellerId Int @unique
+// }

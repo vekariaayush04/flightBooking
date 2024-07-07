@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import Button from '@mui/material/Button';
 
 const Home: React.FC = () => {
     const [tripType, setTripType] = useState('one-way');
-    const [specialFare, setSpecialFare] = useState('regular');
     const [departureDate, setDepartureDate] = useState('2024-05-22');
     const [travellers, setTravellers] = useState(1);
 
     return (
-        <div className="max-w-lg mx-auto p-4 bg-white shadow-md rounded-md">
+        <div className="flex justify-center h-screen w-full items-center">
+            <div className=" max-w-lg mx-auto p-4 bg-white shadow-md rounded-md">
             <div className="flex justify-center mb-4">
                 <div className="mr-4">
                     <input 
@@ -48,8 +49,7 @@ const Home: React.FC = () => {
                 <label className="block mb-2">From</label>
                 <input 
                     type="text" 
-                    value="Delhi (DEL, Delhi Airport India)" 
-                    readOnly 
+                    placeholder='Delhi (DEL, Delhi Airport India)'
                     className="w-full px-4 py-2 border rounded-md"
                 />
             </div>
@@ -58,8 +58,7 @@ const Home: React.FC = () => {
                 <label className="block mb-2">To</label>
                 <input 
                     type="text" 
-                    value="Bengaluru (BLR, Bengaluru International Airport)" 
-                    readOnly 
+                    placeholder="Bengaluru (BLR, Bengaluru International Airport)" 
                     className="w-full px-4 py-2 border rounded-md"
                 />
             </div>
@@ -94,48 +93,12 @@ const Home: React.FC = () => {
                 />
             </div>
 
-            <div className="mb-4">
-                <label className="block mb-2">Select a special fare</label>
-                <div className="flex justify-center">
-                    <button 
-                        className={`px-4 py-2 ${specialFare === 'regular' ? 'bg-blue-500 text-white' : 'bg-gray-200'} mr-2`} 
-                        onClick={() => setSpecialFare('regular')}
-                    >
-                        Regular
-                    </button>
-                    <button 
-                        className={`px-4 py-2 ${specialFare === 'student' ? 'bg-blue-500 text-white' : 'bg-gray-200'} mr-2`} 
-                        onClick={() => setSpecialFare('student')}
-                    >
-                        Student
-                    </button>
-                    <button 
-                        className={`px-4 py-2 ${specialFare === 'senior' ? 'bg-blue-500 text-white' : 'bg-gray-200'} mr-2`} 
-                        onClick={() => setSpecialFare('senior')}
-                    >
-                        Senior Citizen
-                    </button>
-                    <button 
-                        className={`px-4 py-2 ${specialFare === 'armed-forces' ? 'bg-blue-500 text-white' : 'bg-gray-200'} mr-2`} 
-                        onClick={() => setSpecialFare('armed-forces')}
-                    >
-                        Armed Forces
-                    </button>
-                    <button 
-                        className={`px-4 py-2 ${specialFare === 'doctor-nurses' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} 
-                        onClick={() => setSpecialFare('doctor-nurses')}
-                    >
-                        Doctor and Nurses
-                    </button>
-                </div>
-            </div>
-
             <div className="flex justify-center">
-                <button className="px-6 py-2 bg-blue-500 text-white rounded-md">
-                    SEARCH
-                </button>
+                <Button variant='contained'>Search</Button>
+            </div>
             </div>
         </div>
+        
     );
 }
 
